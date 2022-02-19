@@ -3,12 +3,15 @@ package com.project.professor.allocation.entity;
 import java.time.DayOfWeek;
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -24,7 +27,11 @@ public class Allocation {
 	private Date start;
 	@Temporal(TemporalType.TIME)
 	private Date end;
+	@Column(name = "couse_id", nullable = false)
 	private Long courseId;
+	@ManyToOne(optional = false)
+	@JoinColumn(name = "course_id", updatable = false, insertable = false, nullable = false)
+	private Course course;
 	private Long professorId;
 
 	public Long getId() {
