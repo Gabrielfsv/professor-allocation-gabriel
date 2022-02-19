@@ -27,12 +27,18 @@ public class Allocation {
 	private Date start;
 	@Temporal(TemporalType.TIME)
 	private Date end;
+	
 	@Column(name = "couse_id", nullable = false)
 	private Long courseId;
 	@ManyToOne(optional = false)
-	@JoinColumn(name = "course_id", updatable = false, insertable = false, nullable = false)
+	@JoinColumn(name = "course_id", updatable = false, insertable = false, nullable = false)	
 	private Course course;
+	
+	@Column(name = "professor_id", nullable = false)
 	private Long professorId;
+	@ManyToOne(optional = false)
+	@JoinColumn(name = "professor_id", updatable = false, insertable = false, nullable = false)
+	private Professor prof;
 
 	public Long getId() {
 		return id;
