@@ -57,4 +57,12 @@ public class Professor {
 		this.departmentId = departmentId;
 	}
 
+	public Departament getDepart() {
+		return depart;
+	}
+
+	public void setDepart(Departament depart) {
+		this.depart = depart;
+	}
+
 }
