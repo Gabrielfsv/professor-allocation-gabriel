@@ -12,7 +12,8 @@ public class Course {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	@Column(nullable = false, unique = true)
+	
+	@Column(name = "name", nullable = false, unique = true)
 	private String name;
 
 	public Long getId() {
@@ -29,6 +30,11 @@ public class Course {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	@Override
+	public String toString() {
+		return "Course [id=" + id + ", name=" + name + "]";
 	}
 
 }

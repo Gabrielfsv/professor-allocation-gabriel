@@ -14,6 +14,7 @@ public class Professor {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	@Column(name = "name", nullable = false)
 	private String name;
 	@Column(length = 14, unique = true, nullable = false)
 	private String cpf;
@@ -23,7 +24,7 @@ public class Professor {
 	
 	@ManyToOne(optional = false)
 	@JoinColumn(name = "department_id", updatable = false, insertable = false, nullable = false)
-	private Departament depart;
+	private Department depart;
 	
 	public Long getId() {
 		return id;
@@ -57,12 +58,18 @@ public class Professor {
 		this.departmentId = departmentId;
 	}
 
-	public Departament getDepart() {
+	public Department getDepart() {
 		return depart;
 	}
 
-	public void setDepart(Departament depart) {
+	public void setDepart(Department depart) {
 		this.depart = depart;
+	}
+
+	@Override
+	public String toString() {
+		return "Professor [id=" + id + ", name=" + name + ", cpf=" + cpf + ", departmentId=" + departmentId
+				+ ", depart=" + depart + "]";
 	}
 
 }
