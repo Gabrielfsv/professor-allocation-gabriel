@@ -34,7 +34,7 @@ public class Allocation {
 	@Temporal(TemporalType.TIME)
 	private Date end;
 
-	@Column(name = "couse_id", nullable = false)
+	@Column(name = "course_id", nullable = false)
 	private Long courseId;
 
 	@ManyToOne(optional = false)
@@ -96,4 +96,12 @@ public class Allocation {
 		this.professorId = professorId;
 	}
 
+	@Override
+	public String toString() {
+		return "Allocation [id=" + id + ", day=" + day + ", start=" + start + ", end=" + end + ", courseId=" + courseId
+				+ ", course=" + course + ", professorId=" + professorId + ", prof=" + prof + "]";
+	}
+
+
+	
 }
