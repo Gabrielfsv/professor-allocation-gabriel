@@ -45,7 +45,7 @@ public class AllocationService {
 		}
 	}
 
-	public void deletByaid(Long id) {
+	public void deleteById(Long id) {
 		if (allocationRepository.existsById(id)) 
 		{
 			allocationRepository.existsById(id);
