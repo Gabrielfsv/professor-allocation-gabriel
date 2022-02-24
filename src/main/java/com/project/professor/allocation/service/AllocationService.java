@@ -26,13 +26,12 @@ public class AllocationService {
 	public Allocation findById(Long id) {
 		Optional<Allocation> optional = allocationRepository.findById(id);
 		Allocation allocation = optional.orElse(null);
-		return allocation;
+		return saveInternal(allocation);
 	}
 
 	public Allocation create(Allocation allocation) {
 		allocation.setId(null);
-		Allocation allocationNew = allocationRepository.save(allocation);
-		return allocationNew;
+		return saveInternal(allocation);
 	}
 
 	public Allocation update(Allocation allocation) {
@@ -45,15 +44,45 @@ public class AllocationService {
 		}
 	}
 
+	private Allocation saveInternal(Allocation allocation) {
+		if (hasCollision(allocation)) {
+			throw new RuntimeException();
+		} else {
+			Allocation allocationNew = allocationRepository.save(allocation);
+			return allocationNew;
+		}
+	}
+
 	public void deleteById(Long id) {
-		if (allocationRepository.existsById(id)) 
-		{
+		if (allocationRepository.existsById(id)) {
 			allocationRepository.existsById(id);
 		}
 
 	}
-	public void deleteAll()
-	{
+
+	public void deleteAll() {
 		allocationRepository.deleteAllInBatch();
+	}
+
+	boolean hasCollision(Allocation newAllocation) {
+		boolean hasCollision = false;
+
+		List<Allocation> currentAllocations = allocationRepository.findByProfessorId(newAllocation.getProfessorId());
+
+		for (Allocation currentAllocation : currentAllocations) {
+			hasCollision = hasCollision(currentAllocation, newAllocation);
+			if (hasCollision) {
+				break;
+			}
+		}
+
+		return hasCollision;
+	}
+
+	private boolean hasCollision(Allocation currentAllocation, Allocation newAllocation) {
+		return !currentAllocation.getId().equals(newAllocation.getId())
+				&& currentAllocation.getDay() == newAllocation.getDay()
+				&& currentAllocation.getStart().compareTo(newAllocation.getEnd()) < 0
+				&& newAllocation.getStart().compareTo(currentAllocation.getEnd()) < 0;
 	}
 }
