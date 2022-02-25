@@ -12,28 +12,35 @@ import com.project.professor.allocation.repository.AllocationRepository;
 public class AllocationService {
 
 	private final AllocationRepository allocationRepository;
-
+	private final ProfessorService professorService;
+	private final CourseService courseService;
+	
 	public AllocationService(AllocationRepository allocationRepository) {
 		super();
 		this.allocationRepository = allocationRepository;
 	}
-
+	
+	//CRUID Ler todos
+	
 	public List<Allocation> findAll() {
 		List<Allocation> allocations = allocationRepository.findAll();
 		return allocations;
 	}
 
+	//CRUID Ler pelo id
 	public Allocation findById(Long id) {
 		Optional<Allocation> optional = allocationRepository.findById(id);
 		Allocation allocation = optional.orElse(null);
 		return saveInternal(allocation);
 	}
 
+	//CRUID Criar	
 	public Allocation create(Allocation allocation) {
 		allocation.setId(null);
 		return saveInternal(allocation);
 	}
 
+	//CRUID Atualizar	
 	public Allocation update(Allocation allocation) {
 		Long id = allocation.getId();
 		if (id != null && allocationRepository.existsById(id)) {
@@ -43,7 +50,7 @@ public class AllocationService {
 			return null;
 		}
 	}
-
+	
 	private Allocation saveInternal(Allocation allocation) {
 		if (hasCollision(allocation)) {
 			throw new RuntimeException();
@@ -52,7 +59,9 @@ public class AllocationService {
 			return allocationNew;
 		}
 	}
-
+	
+	//CRUID Deletar pelo Id
+	
 	public void deleteById(Long id) {
 		if (allocationRepository.existsById(id)) {
 			allocationRepository.existsById(id);
@@ -60,6 +69,7 @@ public class AllocationService {
 
 	}
 
+	//CRUID Deletar tudo
 	public void deleteAll() {
 		allocationRepository.deleteAllInBatch();
 	}
