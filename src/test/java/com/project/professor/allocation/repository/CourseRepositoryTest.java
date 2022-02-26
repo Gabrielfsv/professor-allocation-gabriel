@@ -78,21 +78,24 @@ public class CourseRepositoryTest {
 	        course.setName("UniQualiti");
 	        // Act
 	        
-
+	        Course courses = courseRepository.save(course);
 	        // Print
-	        
+	        System.out.println(courses);
 	    }
 
 	    @Test
 	    public void save_update() throws ParseException {
 	        // Arrange
-	        
+	    	Course course = new Course();
+			course.setId(2L);
+			course.setName("Deep Code");
 
 	        // Act
-	        
+			Course courses = courseRepository.save(course);
 
 	        // Print
-	        
+			System.out.println(courses);
+			
 	    }
 
 	    @Test
@@ -101,13 +104,13 @@ public class CourseRepositoryTest {
 	        
 
 	        // Act
-	        
+	    	courseRepository.deleteById(2L);
 	    }
 
 	    @Test
 	    public void deleteAll() {
 	        // Act
-	        
+	    	
 	    }
 	
 
