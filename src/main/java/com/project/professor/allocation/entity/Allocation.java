@@ -46,7 +46,7 @@ public class Allocation {
 
 	@ManyToOne(optional = false)
 	@JoinColumn(name = "professor_id", updatable = false, insertable = false, nullable = false)
-	private Professor prof;
+	private Professor professor;
 
 	public Long getId() {
 		return id;
@@ -96,10 +96,26 @@ public class Allocation {
 		this.professorId = professorId;
 	}
 
+	public Course getCourse() {
+		return course;
+	}
+
+	public void setCourse(Course course) {
+		this.course = course;
+	}
+
+	public Professor getProfessor() {
+		return professor;
+	}
+
+	public void setProfessor(Professor professor) {
+		this.professor = professor;
+	}
+
 	@Override
 	public String toString() {
 		return "Allocation [id=" + id + ", day=" + day + ", start=" + start + ", end=" + end + ", courseId=" + courseId
-				+ ", course=" + course + ", professorId=" + professorId + ", prof=" + prof + "]";
+				+ ", course=" + course + ", professorId=" + professorId + ", prof=" + professor + "]";
 	}
 
 
