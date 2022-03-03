@@ -5,14 +5,12 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
-import com.project.professor.allocation.entity.Course;
 import com.project.professor.allocation.entity.Department;
-import com.project.professor.allocation.repository.CourseRepository;
 import com.project.professor.allocation.repository.DepartmentRepository;
 
 @Service
 public class DepartamentService {
-	
+
 	private DepartmentRepository departmentRepository;
 
 	public DepartamentService(DepartmentRepository departmentRepository) {
@@ -69,6 +67,5 @@ public class DepartamentService {
 	public void deleteAll() {
 		departmentRepository.deleteAllInBatch();
 	}
-	
 
 }
