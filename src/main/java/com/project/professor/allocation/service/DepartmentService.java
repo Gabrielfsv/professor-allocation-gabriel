@@ -9,11 +9,11 @@ import com.project.professor.allocation.entity.Department;
 import com.project.professor.allocation.repository.DepartmentRepository;
 
 @Service
-public class DepartamentService {
+public class DepartmentService {
 
 	private DepartmentRepository departmentRepository;
 
-	public DepartamentService(DepartmentRepository departmentRepository) {
+	public DepartmentService(DepartmentRepository departmentRepository) {
 		super();
 		this.departmentRepository = departmentRepository;
 	}
