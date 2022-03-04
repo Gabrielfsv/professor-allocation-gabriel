@@ -1,7 +1,6 @@
 package com.project.professor.allocation.service;
 
 import java.text.ParseException;
-import java.time.DayOfWeek;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
