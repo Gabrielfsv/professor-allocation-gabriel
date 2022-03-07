@@ -1,6 +1,5 @@
 package com.project.professor.allocation.service;
 
-
 import java.util.List;
 import java.util.Optional;
 
@@ -17,8 +16,7 @@ public class AllocationService {
 	private final AllocationRepository allocationRepository;
 	private final ProfessorService professorService;
 	private final CourseService courseService;
-	
-	
+
 	public AllocationService(AllocationRepository allocationRepository, ProfessorService professorService,
 			CourseService courseService) {
 		super();
@@ -27,55 +25,54 @@ public class AllocationService {
 		this.courseService = courseService;
 	}
 
-	//CRUID Ler todos
-	
+	// CRUID Ler todos
+
 	public List<Allocation> findAll() {
 		List<Allocation> allocations = allocationRepository.findAll();
 		return allocations;
 	}
 
-	//CRUID Ler pelo id
+	// CRUID Ler pelo id
 	public Allocation findById(Long id) {
 		Optional<Allocation> optional = allocationRepository.findById(id);
 		Allocation allocation = optional.orElse(null);
 		return saveInternal(allocation);
 	}
 
-	//CRUID Criar	
+	// CRUID Criar
 	public Allocation create(Allocation allocation) {
 		allocation.setId(null);
 		return saveInternal(allocation);
 	}
 
-	//CRUID Atualizar	
+	// CRUID Atualizar
 	public Allocation update(Allocation allocation) {
 		Long id = allocation.getId();
 		if (id != null && allocationRepository.existsById(id)) {
-			Allocation allocationNew = allocationRepository.save(allocation);
-			return allocationNew;
+			return saveInternal(allocation);
 		} else {
 			return null;
 		}
 	}
-	
+
 	private Allocation saveInternal(Allocation allocation) {
 		if (hasCollision(allocation)) {
 			throw new RuntimeException();
 		} else {
 			Allocation allocationNew = allocationRepository.save(allocation);
-			
-			Professor professor = professorService.findById(allocation.getProfessorId());
-            allocation.setProfessor(professor);
 
-            Course course = courseService.findById(allocation.getCourseId());
-            allocation.setCourse(course);
-			
+			Professor professor = professorService.findById(allocation.getProfessorId());
+			allocation.setProfessor(professor);
+
+			Course course = courseService.findById(allocation.getCourseId());
+			allocation.setCourse(course);
+
 			return allocationNew;
 		}
 	}
-	
-	//CRUID Deletar pelo Id
-	
+
+	// CRUID Deletar pelo Id
+
 	public void deleteById(Long id) {
 		if (allocationRepository.existsById(id)) {
 			allocationRepository.existsById(id);
@@ -83,7 +80,7 @@ public class AllocationService {
 
 	}
 
-	//CRUID Deletar tudo
+	// CRUID Deletar tudo
 	public void deleteAll() {
 		allocationRepository.deleteAllInBatch();
 	}
