@@ -20,9 +20,12 @@ public class CourseService {
 
 	// CRUID Ler todos
 
-	public List<Course> findAll() {
-		List<Course> courses = courseRepository.findAll();
-		return courses;
+	public List<Course> findAll(String name) {
+		if (name == null) {
+			return courseRepository.findAll();
+		} else {
+			return courseRepository.findByNameContainingIgnoreCase(name);
+		}
 	}
 
 	// CRUID Ler pelo id
@@ -33,9 +36,9 @@ public class CourseService {
 	}
 
 	// CRUID Criar
-	public Course create(Course course) {
+	public Course save(Course course) {
 		course.setId(null);
-		return saveInternal(course);
+		return courseRepository.save(course);
 	}
 
 	// CRUID Atualizar
@@ -49,16 +52,11 @@ public class CourseService {
 		}
 	}
 
-	private Course saveInternal(Course professor) {
-		Course professorNew = courseRepository.save(professor);
-		return professorNew;
-	}
-
 	// CRUID Deletar pelo Id
 
 	public void deleteById(Long id) {
-		if (courseRepository.existsById(id)) {
-			courseRepository.existsById(id);
+		if (id != null && courseRepository.existsById(id)) {
+			courseRepository.deleteById(id);
 		}
 
 	}
