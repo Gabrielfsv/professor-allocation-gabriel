@@ -20,9 +20,12 @@ public class DepartmentService {
 
 	// CRUID Ler todos
 
-	public List<Department> findAll() {
-		List<Department> departments = departmentRepository.findAll();
-		return departments;
+	public List<Department> findAll(String name) {
+		if (name == null) {
+			return departmentRepository.findAll();
+		} else {
+			return departmentRepository.findByNameContainingIgnoreCase(name);
+		}
 	}
 
 	// CRUID Ler pelo id
@@ -33,32 +36,26 @@ public class DepartmentService {
 	}
 
 	// CRUID Criar
-	public Department create(Department department) {
+	public Department save(Department department) {
 		department.setId(null);
-		return saveInternal(department);
+		return departmentRepository.save(department);
 	}
 
 	// CRUID Atualizar
 	public Department update(Department department) {
 		Long id = department.getId();
 		if (id != null && departmentRepository.existsById(id)) {
-			Department departmentNew = departmentRepository.save(department);
-			return departmentNew;
+			return department = departmentRepository.save(department);
 		} else {
 			return null;
 		}
 	}
 
-	private Department saveInternal(Department department) {
-		Department departmentNew = departmentRepository.save(department);
-		return departmentNew;
-	}
-
 	// CRUID Deletar pelo Id
 
 	public void deleteById(Long id) {
-		if (departmentRepository.existsById(id)) {
-			departmentRepository.existsById(id);
+		if (id != null && departmentRepository.existsById(id)) {
+			departmentRepository.deleteById(id);
 		}
 
 	}
