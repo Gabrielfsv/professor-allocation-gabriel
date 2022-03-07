@@ -24,7 +24,7 @@ public class DepartmentServiceTest {
 	@Test
 	public void findAll() {
 		// Act
-		List<Department> department = departmentService.findAll();
+		List<Department> department = departmentService.findAll("department");
 
 		// Print
 		department.forEach(System.out::println);
@@ -49,7 +49,7 @@ public class DepartmentServiceTest {
 		department.setId(null);
 		department.setName("Universidade Qualiti");
 		// Act
-		department = departmentService.create(department);
+		department = departmentService.save(department);
 
 		// Print
 		System.out.println(department);
@@ -74,7 +74,7 @@ public class DepartmentServiceTest {
 	@Test
 	public void deleteById() {
 		// Arrange
-		Long id = 3L;
+		Long id = 4L;
 
 		// Act
 		departmentService.deleteById(id);
