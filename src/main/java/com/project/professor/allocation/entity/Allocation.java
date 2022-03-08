@@ -15,6 +15,13 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.deser.std.DateDeserializers;
+import com.fasterxml.jackson.databind.deser.std.DateDeserializers.DateDeserializer;
+import com.fasterxml.jackson.databind.ser.std.DateSerializer;
+
 @Entity
 public class Allocation {
 
@@ -22,15 +29,23 @@ public class Allocation {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column(nullable = false)
+	@Column(name = "day", nullable = false)
 	@Enumerated(EnumType.STRING)
 	private DayOfWeek day;
 
-	@Column(nullable = false)
+	@JsonFormat(pattern = "HH:mmZ")
+	@JsonSerialize(using = DateSerializer.class)
+	//JAVA -> JSON
+	@JsonDeserialize(using = DateDeserializers.DateDeserializer.class)
+	//JSON -> JAVA
+	@Column(name = "start", nullable = false)
 	@Temporal(TemporalType.TIME)
 	private Date start;
 	
-	@Column(nullable = false)
+	@JsonFormat(pattern = "HH:mmZ")
+	@JsonSerialize(using = DateSerializer.class)
+	@JsonDeserialize(using = DateDeserializers.DateDeserializer.class)
+	@Column(name = "end", nullable = false)
 	@Temporal(TemporalType.TIME)
 	private Date end;
 
