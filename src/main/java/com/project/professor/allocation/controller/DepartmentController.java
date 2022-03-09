@@ -54,8 +54,8 @@ public class DepartmentController {
 
 	public ResponseEntity<Department> save(@RequestBody Department department) {
 		try {
-			Department newdepartment = departmentService.save(department);
-			return new ResponseEntity<Department>(newdepartment, HttpStatus.CREATED);
+			Department newDepartment = departmentService.save(department);
+			return new ResponseEntity<Department>(newDepartment, HttpStatus.CREATED);
 		} catch (Exception e) {
 			return new ResponseEntity<Department>(HttpStatus.BAD_REQUEST);
 		}
