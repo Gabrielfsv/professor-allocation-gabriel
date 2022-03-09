@@ -5,8 +5,10 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
+
 import com.project.professor.allocation.entity.Department;
 import com.project.professor.allocation.entity.Professor;
+import com.project.professor.allocation.repository.AllocationRepository;
 import com.project.professor.allocation.repository.ProfessorRepository;
 
 @Service
@@ -14,11 +16,17 @@ public class ProfessorService {
 
 	private ProfessorRepository professorRepository;
 	private DepartmentService departmentService;
-
-	public ProfessorService(ProfessorRepository professorRepository, DepartmentService departmentService) {
+	
+	
+	
+	public ProfessorService(ProfessorRepository professorRepository, DepartmentService departmentService,
+			AllocationRepository allocationRepository) {
 		super();
 		this.professorRepository = professorRepository;
 		this.departmentService = departmentService;
+		
+	
+
 	}
 
 	// CRUID Ler todos
@@ -37,9 +45,11 @@ public class ProfessorService {
 		Professor professors = optional.orElse(null);
 		return professors;
 	}
-
+	 public List<Professor> findByDepartment(Long departmentId) {
+	        return professorRepository.findByDepartmentId(departmentId);
+	    }
 	// CRUID Criar
-	public Professor create(Professor professor) {
+	public Professor save(Professor professor) {
 		professor.setId(null);
 		return saveInternal(professor);
 	}
