@@ -49,7 +49,7 @@ public class ProfessorServiceTest {
 		professor.setDepartmentId(1L);
 		
 		// Act
-		professor = professorService.create(professor);
+		professor = professorService.save(professor);
 
 		// Print
 		System.out.println(professor);
