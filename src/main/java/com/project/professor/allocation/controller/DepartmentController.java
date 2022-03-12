@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,6 +21,7 @@ import com.project.professor.allocation.entity.Department;
 import com.project.professor.allocation.service.DepartmentService;
 
 @RestController
+@RequestMapping(path = "/departments")
 public class DepartmentController {
 
 	private final DepartmentService departmentService;
@@ -30,7 +32,7 @@ public class DepartmentController {
 	}
 
 	@ResponseStatus(HttpStatus.OK)
-	@GetMapping(path = "/departments", produces = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 	// http://localhost:8080/departments?name=ia
 	public ResponseEntity<List<Department>> findAll(@RequestParam(name = "name", required = false) String name) {
 		List<Department> departments = departmentService.findAll(name);
@@ -63,7 +65,7 @@ public class DepartmentController {
 	
 	@ResponseStatus(HttpStatus.OK)
 	@PutMapping(
-			path = "/department/{department_id}", 
+			path = "/{department_id}", 
 			consumes = MediaType.APPLICATION_JSON_VALUE, 
 			produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Department> update(
@@ -84,7 +86,7 @@ public class DepartmentController {
 	}
 	
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	@DeleteMapping(path = "/department/{department_id}")
+	@DeleteMapping(path = "/{department_id}")
 	public ResponseEntity<Void> deleteById(@PathVariable(name = "department_id") Long id)
 	{
 		departmentService.deleteById(id);
@@ -92,7 +94,7 @@ public class DepartmentController {
 	}
 	
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	@DeleteMapping(path = "/department")
+	@DeleteMapping
 	public ResponseEntity<Void> deleteAll()
 	{
 		departmentService.deleteAll();

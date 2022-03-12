@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,6 +20,7 @@ import com.project.professor.allocation.entity.Professor;
 import com.project.professor.allocation.service.ProfessorService;
 
 @RestController
+@RequestMapping(path = "/professors")
 public class ProfessorController {
 
 	private final ProfessorService professorService;
@@ -28,7 +30,7 @@ public class ProfessorController {
 		this.professorService = professorService;
 	}
 	@ResponseStatus(HttpStatus.OK)
-	@GetMapping(path = "/professors", produces = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 	// http://localhost:8080/departments?name=ia
 	public ResponseEntity<List<Professor>> findAll(@RequestParam(name = "name", required = false) String name) {
 		List<Professor> professor = professorService.findAll(name);
@@ -61,7 +63,7 @@ public class ProfessorController {
 	
 	@ResponseStatus(HttpStatus.OK)
 	@PutMapping(
-			path = "/professor/{professor_id}", 
+			path = "/{professor_id}", 
 			consumes = MediaType.APPLICATION_JSON_VALUE, 
 			produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Professor> update(
@@ -82,7 +84,7 @@ public class ProfessorController {
 	}
 	
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	@DeleteMapping(path = "/professor/{professor_id}")
+	@DeleteMapping(path = "/{professor_id}")
 	public ResponseEntity<Void> deleteById(@PathVariable(name = "professor_id") Long id)
 	{
 		professorService.deleteById(id);
@@ -90,7 +92,7 @@ public class ProfessorController {
 	}
 	
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	@DeleteMapping(path = "/professor")
+	@DeleteMapping
 	public ResponseEntity<Void> deleteAll()
 	{
 		professorService.deleteAll();

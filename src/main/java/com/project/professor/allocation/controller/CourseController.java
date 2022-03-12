@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
- 
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,7 +21,7 @@ import com.project.professor.allocation.entity.Course;
 import com.project.professor.allocation.service.CourseService;
 
 @RestController
-
+@RequestMapping(path = "/courses")
 public class CourseController {
 
 	private final CourseService courseService;
@@ -32,7 +32,7 @@ public class CourseController {
 	}
 
 	@ResponseStatus(HttpStatus.OK)
-	@GetMapping(path = "/courses", produces = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 	// http://localhost:8080/departments?name=ia
 	public ResponseEntity<List<Course>> findAll(@RequestParam(name = "name", required = false) String name) {
 		List<Course> courses = courseService.findAll(name);
@@ -65,7 +65,7 @@ public class CourseController {
 	
 	@ResponseStatus(HttpStatus.OK)
 	@PutMapping(
-			path = "/course/{course_id}", 
+			path = "/{course_id}", 
 			consumes = MediaType.APPLICATION_JSON_VALUE, 
 			produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Course> update(
@@ -86,7 +86,7 @@ public class CourseController {
 	}
 	
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	@DeleteMapping(path = "/course/{course_id}")
+	@DeleteMapping(path = "/{course_id}")
 	public ResponseEntity<Void> deleteById(@PathVariable(name = "course_id") Long id)
 	{
 		courseService.deleteById(id);
@@ -94,7 +94,7 @@ public class CourseController {
 	}
 	
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	@DeleteMapping(path = "/course")
+	@DeleteMapping
 	public ResponseEntity<Void> deleteAll()
 	{
 		courseService.deleteAll();

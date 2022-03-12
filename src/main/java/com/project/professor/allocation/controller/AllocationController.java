@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -17,6 +18,7 @@ import com.project.professor.allocation.entity.Allocation;
 import com.project.professor.allocation.service.AllocationService;
 
 @RestController
+@RequestMapping(path = "/allocations")
 public class AllocationController {
 
 	private final AllocationService allocationService;
@@ -27,7 +29,7 @@ public class AllocationController {
 	}
 
 	@ResponseStatus(HttpStatus.OK)
-	@GetMapping(path = "/allocations", produces = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 	// public List<Allocation> findAll()
 	// GET http://localrost:8080/departments
 	public ResponseEntity<List<Allocation>> findAll() {
@@ -36,7 +38,7 @@ public class AllocationController {
 	}
 
 	@ResponseStatus(HttpStatus.OK)
-	@GetMapping(path = "/allocations/{allocation_id}", produces = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(path = "/{allocation_id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Allocation> findById(@PathVariable("allocation_id") Long id) {
 		Allocation allocation = allocationService.findById(id);
 
@@ -52,7 +54,6 @@ public class AllocationController {
 	// READ, CREATE, UPDATE, DELETE
 	// GET , POST , PUT , DELETE
 	@PostMapping(
-			path = "/allocations", 
 			consumes = MediaType.APPLICATION_JSON_VALUE, 
 			produces = MediaType.APPLICATION_JSON_VALUE)
 
@@ -67,7 +68,7 @@ public class AllocationController {
 
 	@ResponseStatus(HttpStatus.OK)
 	@PutMapping(
-			path = "/allocation/{allocation_id}", 
+			path = "/{allocation_id}", 
 			consumes = MediaType.APPLICATION_JSON_VALUE, 
 			produces = MediaType.APPLICATION_JSON_VALUE)
 
@@ -88,7 +89,7 @@ public class AllocationController {
 		}
 	}
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	@DeleteMapping(path = "/allocations/{allocation_id}")
+	@DeleteMapping(path = "/{allocation_id}")
 	public ResponseEntity<Void> deleteById(@PathVariable(name = "allocation_id") Long id)
 	{
 		allocationService.deleteById(id);
@@ -96,7 +97,7 @@ public class AllocationController {
 	}
 	
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	@DeleteMapping(path = "/allocations")
+	@DeleteMapping
 	public ResponseEntity<Void> deleteAll()
 	{
 		allocationService.deleteAll();
